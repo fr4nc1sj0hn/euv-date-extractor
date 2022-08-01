@@ -32,11 +32,9 @@ cfg = {
 
 cfg["YearSuffix"] = str(cfg["Year"])
 
-cfg["YearSuffix"] = str(cfg["Year"])
 
-cfg["writeToSharePoint"] = 'N' #Will be written locally if set to N
-cfg["LocalHistoryFolder"] = 'C:\\Temp\\History\\' #Will be written locally if set to N
-cfg["LocalStepsFolder"] = 'C:\\Temp\\Steps\\' #Will be written locally if set to N
+cfg["LocalHistoryFolder"] = 'C:\\Temp\\History\\'   
+cfg["LocalStepsFolder"] = 'C:\\Temp\\Steps\\'       
 
 tracks = [
     ("3300", "LITHIUS PRO Z"),
@@ -57,7 +55,8 @@ tracksdata = {
 
 }
 
-fetchFromExtractor = 'N' #Set to Y if you want data from extractor, otherwise, data will taken locally at specified folder path
+fetchFromExtractor  = 'N'   # Set to Y if you want data from extractor, otherwise, data will taken locally at specified folder path
+writeToSharePoint   = 'N'   # Will be written locally if set to N
 
 ################################################# Download Data
 try:
@@ -89,10 +88,10 @@ for key in tracksdata:
         FromlocalPath = track_data["sourcelocalFolder"]
         tgtlocalLogFolder = track_data["tgtlocalLogFolder"]
 
-        if fetchFromExtractor == 'Y':
-            FromlocalPath = os.getcwd()
-
-        WriteExcerptsToLocal(FromlocalPath, tgtlocalLogFolder,imec_track_name)
+        if writeToSharePoint == 'Y' and fetchFromExtractor  == 'Y':
+            WriteToSharePoint(cfg,imec_track_name)
+        else:
+            WriteExcerptsToLocal(FromlocalPath, tgtlocalLogFolder,imec_track_name)
 
     except KeyboardInterrupt:
         print("Interrupted.")
